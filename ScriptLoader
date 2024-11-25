@@ -25,7 +25,7 @@ scrollingFrame.ScrollBarThickness = 10
 scrollingFrame.Parent = mainFrame
 
 -- Example raw Lua scripts to execute on button clicks
-local script1 = "loadstring(game:HttpGet("https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/refs/heads/main/ai%20apart"))()"
+local script1 = "loadstring(game:HttpGet('https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/main/ai%20apart'))()"))()"
 local script2 = "game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)"
 local script3 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true"
 local script4 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false"
