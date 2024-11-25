@@ -25,7 +25,7 @@ scrollingFrame.ScrollBarThickness = 10
 scrollingFrame.Parent = mainFrame
 
 -- Example raw Lua scripts to execute on button clicks
-local script1 = "print('Hello from Script 1')"
+local script1 = "loadstring(game:HttpGet("https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/refs/heads/main/ai%20apart"))()"
 local script2 = "game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)"
 local script3 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true"
 local script4 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false"
@@ -41,7 +41,7 @@ local button1 = Instance.new("TextButton")
 button1.Size = UDim2.new(1, -20, 0, 40) -- Size of each button
 button1.Position = UDim2.new(0, 10, 0, 10) -- Position within the ScrollingFrame
 button1.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button1.Text = "Script 1"
+button1.Text = "A.I. Apartement"
 button1.Parent = scrollingFrame
 button1.MouseButton1Click:Connect(function()
     loadstring(script1)() -- Executes Script 1
