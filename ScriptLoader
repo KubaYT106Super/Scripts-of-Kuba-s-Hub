@@ -1,0 +1,147 @@
+-- Get the local player and their GUI
+local player = game:GetService("Players").LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create the main ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+
+-- Create the main frame that is draggable
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 300, 0, 400)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -200) -- Center the frame
+mainFrame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+mainFrame.BorderSizePixel = 2
+mainFrame.BorderColor3 = Color3.new(1, 1, 1)
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = screenGui
+
+-- Create a ScrollingFrame for scrolling through buttons
+local scrollingFrame = Instance.new("ScrollingFrame")
+scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 2, 0) -- Can adjust CanvasSize based on the number of buttons
+scrollingFrame.ScrollBarThickness = 10
+scrollingFrame.Parent = mainFrame
+
+-- Example raw Lua scripts to execute on button clicks
+local script1 = "print('Hello from Script 1')"
+local script2 = "game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)"
+local script3 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true"
+local script4 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false"
+local script5 = "print('Hello from Script 5')"
+local script6 = "game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(50, 50, 50)"
+local script7 = "print('Hello from Script 7')"
+local script8 = "print('Hello from Script 8')"
+local script9 = "print('Hello from Script 9')"
+local script10 = "print('Hello from Script 10')"
+
+-- Button 1
+local button1 = Instance.new("TextButton")
+button1.Size = UDim2.new(1, -20, 0, 40) -- Size of each button
+button1.Position = UDim2.new(0, 10, 0, 10) -- Position within the ScrollingFrame
+button1.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button1.Text = "Script 1"
+button1.Parent = scrollingFrame
+button1.MouseButton1Click:Connect(function()
+    loadstring(script1)() -- Executes Script 1
+end)
+
+-- Button 2
+local button2 = Instance.new("TextButton")
+button2.Size = UDim2.new(1, -20, 0, 40)
+button2.Position = UDim2.new(0, 10, 0, 60)
+button2.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button2.Text = "Script 2"
+button2.Parent = scrollingFrame
+button2.MouseButton1Click:Connect(function()
+    loadstring(script2)() -- Executes Script 2
+end)
+
+-- Button 3
+local button3 = Instance.new("TextButton")
+button3.Size = UDim2.new(1, -20, 0, 40)
+button3.Position = UDim2.new(0, 10, 0, 110)
+button3.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button3.Text = "Script 3"
+button3.Parent = scrollingFrame
+button3.MouseButton1Click:Connect(function()
+    loadstring(script3)() -- Executes Script 3
+end)
+
+-- Button 4
+local button4 = Instance.new("TextButton")
+button4.Size = UDim2.new(1, -20, 0, 40)
+button4.Position = UDim2.new(0, 10, 0, 160)
+button4.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button4.Text = "Script 4"
+button4.Parent = scrollingFrame
+button4.MouseButton1Click:Connect(function()
+    loadstring(script4)() -- Executes Script 4
+end)
+
+-- Button 5
+local button5 = Instance.new("TextButton")
+button5.Size = UDim2.new(1, -20, 0, 40)
+button5.Position = UDim2.new(0, 10, 0, 210)
+button5.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button5.Text = "Script 5"
+button5.Parent = scrollingFrame
+button5.MouseButton1Click:Connect(function()
+    loadstring(script5)() -- Executes Script 5
+end)
+
+-- Button 6
+local button6 = Instance.new("TextButton")
+button6.Size = UDim2.new(1, -20, 0, 40)
+button6.Position = UDim2.new(0, 10, 0, 260)
+button6.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button6.Text = "Script 6"
+button6.Parent = scrollingFrame
+button6.MouseButton1Click:Connect(function()
+    loadstring(script6)() -- Executes Script 6
+end)
+
+-- Button 7
+local button7 = Instance.new("TextButton")
+button7.Size = UDim2.new(1, -20, 0, 40)
+button7.Position = UDim2.new(0, 10, 0, 310)
+button7.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button7.Text = "Script 7"
+button7.Parent = scrollingFrame
+button7.MouseButton1Click:Connect(function()
+    loadstring(script7)() -- Executes Script 7
+end)
+
+-- Button 8
+local button8 = Instance.new("TextButton")
+button8.Size = UDim2.new(1, -20, 0, 40)
+button8.Position = UDim2.new(0, 10, 0, 360)
+button8.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button8.Text = "Script 8"
+button8.Parent = scrollingFrame
+button8.MouseButton1Click:Connect(function()
+    loadstring(script8)() -- Executes Script 8
+end)
+
+-- Button 9
+local button9 = Instance.new("TextButton")
+button9.Size = UDim2.new(1, -20, 0, 40)
+button9.Position = UDim2.new(0, 10, 0, 410)
+button9.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button9.Text = "Script 9"
+button9.Parent = scrollingFrame
+button9.MouseButton1Click:Connect(function()
+    loadstring(script9)() -- Executes Script 9
+end)
+
+-- Button 10
+local button10 = Instance.new("TextButton")
+button10.Size = UDim2.new(1, -20, 0, 40)
+button10.Position = UDim2.new(0, 10, 0, 460)
+button10.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+button10.Text = "Script 10"
+button10.Parent = scrollingFrame
+button10.MouseButton1Click:Connect(function()
+    loadstring(script10)() -- Executes Script 10
+end)
