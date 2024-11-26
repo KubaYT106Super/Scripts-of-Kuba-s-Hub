@@ -6,142 +6,61 @@ local playerGui = player:WaitForChild("PlayerGui")
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = playerGui
 
--- Create the main frame that is draggable
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 300, 0, 400)
-mainFrame.Position = UDim2.new(0.5, -150, 0.5, -200) -- Center the frame
-mainFrame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
-mainFrame.BorderSizePixel = 2
-mainFrame.BorderColor3 = Color3.new(1, 1, 1)
-mainFrame.Active = true
-mainFrame.Draggable = true
-mainFrame.Parent = screenGui
+-- Create the black draggable frame (border)
+local dragFrame = Instance.new("Frame")
+dragFrame.Size = UDim2.new(0, 500, 0, 320)  -- Size of the entire GUI with draggable area
+dragFrame.Position = UDim2.new(0.5, -250, 0.5, -160)  -- Center the GUI
+dragFrame.BackgroundColor3 = Color3.new(0, 0, 0)  -- Black color for the draggable area
+dragFrame.BorderSizePixel = 0  -- No border to the drag area
+dragFrame.Active = true
+dragFrame.Draggable = true  -- Make the black frame draggable
+dragFrame.Parent = screenGui
 
--- Create a ScrollingFrame for scrolling through buttons
+-- Create the inner main frame (inside content, white background)
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 480, 0, 250)  -- Smaller than the draggable area
+mainFrame.Position = UDim2.new(0, 10, 0, 10)  -- 10px padding from the draggable black area
+mainFrame.BackgroundColor3 = Color3.new(1, 1, 1)  -- White background
+mainFrame.BorderColor3 = Color3.new(1, 0, 0)  -- Red border for the inside content frame
+mainFrame.BorderSizePixel = 4
+mainFrame.Parent = dragFrame  -- Parent to the black draggable frame
+
+-- Create the close button (X) positioned outside the top-right corner of the main frame
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)  -- Size of the close button
+closeButton.BackgroundColor3 = Color3.new(1, 0, 0)  -- Red color for the close button
+closeButton.Text = "X"  -- Label the button with 'X'
+closeButton.TextColor3 = Color3.new(1, 1, 1)  -- White color for the text
+closeButton.Font = Enum.Font.SourceSansBold  -- Bold font
+closeButton.TextSize = 20  -- Adjust text size
+closeButton.Parent = dragFrame  -- Parent to the draggable area (dragFrame)
+
+-- Position the close button just outside the top-right corner of the main frame
+closeButton.AnchorPoint = Vector2.new(1, 0)
+closeButton.Position = UDim2.new(1, 15, 0, -15)  -- 15px away from the top-right corner of the black frame
+
+-- Close the GUI when the close button is clicked
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()  -- Remove the entire GUI (including the mainFrame)
+end)
+
+-- Create a ScrollingFrame for buttons inside the main frame (white area)
 local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 2, 0) -- Can adjust CanvasSize based on the number of buttons
+scrollingFrame.Size = UDim2.new(1, -20, 1, -20)  -- Fit inside the main frame with some padding
+scrollingFrame.Position = UDim2.new(0, 10, 0, 10)  -- 10px padding inside the main frame
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 500)  -- Larger scroll area to hold the buttons
 scrollingFrame.ScrollBarThickness = 10
 scrollingFrame.Parent = mainFrame
 
--- Example raw Lua scripts to execute on button clicks
-local script1 = "loadstring(game:HttpGet('https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/main/ai%20apart'))()"))()"
-local script2 = "game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)"
-local script3 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true"
-local script4 = "game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false"
-local script5 = "print('Hello from Script 5')"
-local script6 = "game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(50, 50, 50)"
-local script7 = "print('Hello from Script 7')"
-local script8 = "print('Hello from Script 8')"
-local script9 = "print('Hello from Script 9')"
-local script10 = "print('Hello from Script 10')"
+-- Create example buttons (1 to 10 without functions)
+for i = 1, 10 do
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, -20, 0, 40)  -- Button size (full width minus padding)
+    button.Position = UDim2.new(0, 10, 0, (i - 1) * 50)  -- Position each button below the last one
+    button.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
+    button.Text = "Button " .. tostring(i)  -- Set the button text
+    button.Parent = scrollingFrame
+end
 
--- Button 1
-local button1 = Instance.new("TextButton")
-button1.Size = UDim2.new(1, -20, 0, 40) -- Size of each button
-button1.Position = UDim2.new(0, 10, 0, 10) -- Position within the ScrollingFrame
-button1.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button1.Text = "A.I. Apartement"
-button1.Parent = scrollingFrame
-button1.MouseButton1Click:Connect(function()
-    loadstring(script1)() -- Executes Script 1
-end)
-
--- Button 2
-local button2 = Instance.new("TextButton")
-button2.Size = UDim2.new(1, -20, 0, 40)
-button2.Position = UDim2.new(0, 10, 0, 60)
-button2.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button2.Text = "Script 2"
-button2.Parent = scrollingFrame
-button2.MouseButton1Click:Connect(function()
-    loadstring(script2)() -- Executes Script 2
-end)
-
--- Button 3
-local button3 = Instance.new("TextButton")
-button3.Size = UDim2.new(1, -20, 0, 40)
-button3.Position = UDim2.new(0, 10, 0, 110)
-button3.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button3.Text = "Script 3"
-button3.Parent = scrollingFrame
-button3.MouseButton1Click:Connect(function()
-    loadstring(script3)() -- Executes Script 3
-end)
-
--- Button 4
-local button4 = Instance.new("TextButton")
-button4.Size = UDim2.new(1, -20, 0, 40)
-button4.Position = UDim2.new(0, 10, 0, 160)
-button4.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button4.Text = "Script 4"
-button4.Parent = scrollingFrame
-button4.MouseButton1Click:Connect(function()
-    loadstring(script4)() -- Executes Script 4
-end)
-
--- Button 5
-local button5 = Instance.new("TextButton")
-button5.Size = UDim2.new(1, -20, 0, 40)
-button5.Position = UDim2.new(0, 10, 0, 210)
-button5.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button5.Text = "Script 5"
-button5.Parent = scrollingFrame
-button5.MouseButton1Click:Connect(function()
-    loadstring(script5)() -- Executes Script 5
-end)
-
--- Button 6
-local button6 = Instance.new("TextButton")
-button6.Size = UDim2.new(1, -20, 0, 40)
-button6.Position = UDim2.new(0, 10, 0, 260)
-button6.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button6.Text = "Script 6"
-button6.Parent = scrollingFrame
-button6.MouseButton1Click:Connect(function()
-    loadstring(script6)() -- Executes Script 6
-end)
-
--- Button 7
-local button7 = Instance.new("TextButton")
-button7.Size = UDim2.new(1, -20, 0, 40)
-button7.Position = UDim2.new(0, 10, 0, 310)
-button7.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button7.Text = "Script 7"
-button7.Parent = scrollingFrame
-button7.MouseButton1Click:Connect(function()
-    loadstring(script7)() -- Executes Script 7
-end)
-
--- Button 8
-local button8 = Instance.new("TextButton")
-button8.Size = UDim2.new(1, -20, 0, 40)
-button8.Position = UDim2.new(0, 10, 0, 360)
-button8.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button8.Text = "Script 8"
-button8.Parent = scrollingFrame
-button8.MouseButton1Click:Connect(function()
-    loadstring(script8)() -- Executes Script 8
-end)
-
--- Button 9
-local button9 = Instance.new("TextButton")
-button9.Size = UDim2.new(1, -20, 0, 40)
-button9.Position = UDim2.new(0, 10, 0, 410)
-button9.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button9.Text = "Script 9"
-button9.Parent = scrollingFrame
-button9.MouseButton1Click:Connect(function()
-    loadstring(script9)() -- Executes Script 9
-end)
-
--- Button 10
-local button10 = Instance.new("TextButton")
-button10.Size = UDim2.new(1, -20, 0, 40)
-button10.Position = UDim2.new(0, 10, 0, 460)
-button10.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-button10.Text = "Script 10"
-button10.Parent = scrollingFrame
-button10.MouseButton1Click:Connect(function()
-    loadstring(script10)() -- Executes Script 10
-end)
+-- Adjust CanvasSize based on the number of buttons
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 10 * 50)  -- 50 pixels per button, 10 buttons
