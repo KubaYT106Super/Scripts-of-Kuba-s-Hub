@@ -1,66 +1,134 @@
--- Get the local player and their GUI
-local player = game:GetService("Players").LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-
--- Create the main ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = playerGui
-
--- Create the black draggable frame (border)
-local dragFrame = Instance.new("Frame")
-dragFrame.Size = UDim2.new(0, 500, 0, 320)  -- Size of the entire GUI with draggable area
-dragFrame.Position = UDim2.new(0.5, -250, 0.5, -160)  -- Center the GUI
-dragFrame.BackgroundColor3 = Color3.new(0, 0, 0)  -- Black color for the draggable area
-dragFrame.BorderSizePixel = 0  -- No border to the drag area
-dragFrame.Active = true
-dragFrame.Draggable = true  -- Make the black frame draggable
-dragFrame.Parent = screenGui
-
--- Create the inner main frame (inside content, white background)
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 480, 0, 250)  -- Smaller than the draggable area
-mainFrame.Position = UDim2.new(0, 10, 0, 10)  -- 10px padding from the draggable black area
-mainFrame.BackgroundColor3 = Color3.new(1, 1, 1)  -- White background
-mainFrame.BorderColor3 = Color3.new(1, 0, 0)  -- Red border for the inside content frame
-mainFrame.BorderSizePixel = 4
-mainFrame.Parent = dragFrame  -- Parent to the black draggable frame
-
--- Create the close button (X) positioned outside the top-right corner of the main frame
+-- Variables
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+local parentFrame = Instance.new("Frame")
+local scrollableFrame = Instance.new("ScrollingFrame")
 local closeButton = Instance.new("TextButton")
-closeButton.Size = UDim2.new(0, 30, 0, 30)  -- Size of the close button
-closeButton.BackgroundColor3 = Color3.new(1, 0, 0)  -- Red color for the close button
-closeButton.Text = "X"  -- Label the button with 'X'
-closeButton.TextColor3 = Color3.new(1, 1, 1)  -- White color for the text
-closeButton.Font = Enum.Font.SourceSansBold  -- Bold font
-closeButton.TextSize = 20  -- Adjust text size
-closeButton.Parent = dragFrame  -- Parent to the draggable area (dragFrame)
 
--- Position the close button just outside the top-right corner of the main frame
-closeButton.AnchorPoint = Vector2.new(1, 0)
-closeButton.Position = UDim2.new(1, 15, 0, -15)  -- 15px away from the top-right corner of the black frame
+-- Set up GUI
+gui.Parent = player:WaitForChild("PlayerGui")
+gui.ResetOnSpawn = false
 
--- Close the GUI when the close button is clicked
+-- Parent frame (Main GUI)
+parentFrame.Parent = gui
+parentFrame.Size = UDim2.new(0, 400, 0, 300)
+parentFrame.Position = UDim2.new(0.5, -200, 0.5, -150) -- Center the frame
+parentFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Draggable area color (black)
+parentFrame.BorderSizePixel = 3
+parentFrame.Draggable = true -- Make the parent frame draggable
+parentFrame.Active = true
+
+-- Scrollable frame
+scrollableFrame.Parent = parentFrame
+scrollableFrame.Size = UDim2.new(0, 380, 0, 240)
+scrollableFrame.Position = UDim2.new(0, 10, 0, 40) -- Inside the parent frame, leave room for drag area
+scrollableFrame.CanvasSize = UDim2.new(0, 0, 5, 0) -- Adjust depending on content
+scrollableFrame.ScrollBarThickness = 10
+scrollableFrame.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+
+-- Close Button (X)
+closeButton.Parent = parentFrame
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, -35) -- Place it at the top-right corner, slightly outside
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+-- Functionality to close the GUI
 closeButton.MouseButton1Click:Connect(function()
-    screenGui:Destroy()  -- Remove the entire GUI (including the mainFrame)
+    gui:Destroy() -- Destroys the entire GUI when X is clicked
 end)
 
--- Create a ScrollingFrame for buttons inside the main frame (white area)
-local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(1, -20, 1, -20)  -- Fit inside the main frame with some padding
-scrollingFrame.Position = UDim2.new(0, 10, 0, 10)  -- 10px padding inside the main frame
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 500)  -- Larger scroll area to hold the buttons
-scrollingFrame.ScrollBarThickness = 10
-scrollingFrame.Parent = mainFrame
+-- Create individual buttons with unique names and scripts
+local button1 = Instance.new("TextButton")
+button1.Parent = scrollableFrame
+button1.Size = UDim2.new(0, 360, 0, 50)
+button1.Position = UDim2.new(0, 10, 0, 10)
+button1.Text = "A.I. Apartement - get all weapons"
+button1.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button1.MouseButton1Click:Connect(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/refs/heads/main/ai%20apart"))()
+end)
 
--- Create example buttons (1 to 10 without functions)
-for i = 1, 10 do
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, -20, 0, 40)  -- Button size (full width minus padding)
-    button.Position = UDim2.new(0, 10, 0, (i - 1) * 50)  -- Position each button below the last one
-    button.BackgroundColor3 = Color3.new(0.3, 0.7, 0.3)
-    button.Text = "Button " .. tostring(i)  -- Set the button text
-    button.Parent = scrollingFrame
+local button2 = Instance.new("TextButton")
+button2.Parent = scrollableFrame
+button2.Size = UDim2.new(0, 360, 0, 50)
+button2.Position = UDim2.new(0, 10, 0, 70)
+button2.Text = "Run Script 2 - AI System"
+button2.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button2.MouseButton1Click:Connect(function()
+    print("Executing AI System script")
+    -- Add your specific script code here
+end)
+
+local button3 = Instance.new("TextButton")
+button3.Parent = scrollableFrame
+button3.Size = UDim2.new(0, 360, 0, 50)
+button3.Position = UDim2.new(0, 10, 0, 130)
+button3.Text = "Run Script 3 - Patrol System"
+button3.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button3.MouseButton1Click:Connect(function()
+    print("Executing Patrol System script")
+    -- Add your specific script code here
+end)
+
+local button4 = Instance.new("TextButton")
+button4.Parent = scrollableFrame
+button4.Size = UDim2.new(0, 360, 0, 50)
+button4.Position = UDim2.new(0, 10, 0, 190)
+button4.Text = "Run Script 4 - Attack Sequence"
+button4.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button4.MouseButton1Click:Connect(function()
+    print("Executing Attack Sequence script")
+    -- Add your specific script code here
+end)
+
+local button5 = Instance.new("TextButton")
+button5.Parent = scrollableFrame
+button5.Size = UDim2.new(0, 360, 0, 50)
+button5.Position = UDim2.new(0, 10, 0, 250)
+button5.Text = "Run Script 5 - Defense Mechanism"
+button5.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button5.MouseButton1Click:Connect(function()
+    print("Executing Defense Mechanism script")
+    -- Add your specific script code here
+end)
+
+-- You can continue adding more buttons with unique names and positions as needed
+
+-- Draggable functionality for the main GUI
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function updateInput(input)
+    local delta = input.Position - dragStart
+    parentFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 end
 
--- Adjust CanvasSize based on the number of buttons
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 10 * 50)  -- 50 pixels per button, 10 buttons
+parentFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = parentFrame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+parentFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if dragging and input == dragInput then
+        updateInput(input)
+    end
+end)
