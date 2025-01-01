@@ -54,11 +54,10 @@ local button2 = Instance.new("TextButton")
 button2.Parent = scrollableFrame
 button2.Size = UDim2.new(0, 360, 0, 50)
 button2.Position = UDim2.new(0, 10, 0, 70)
-button2.Text = "Run Script 2 - AI System"
+button2.Text = "Daycare - TP to chalkboard thing"
 button2.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 button2.MouseButton1Click:Connect(function()
-    print("Executing AI System script")
-    -- Add your specific script code here
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/refs/heads/main/daycare"))()
 end)
 
 local button3 = Instance.new("TextButton")
