@@ -1,0 +1,62 @@
+--Find Lua scripts online and paste them here!
+print("Hello world!")-- Get the local player and their character
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart") -- HumanoidRootPart
+
+-- Create a ScreenGui for the draggable frame
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create a Frame to contain the teleport button (this will be draggable)
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 250, 0, 150) -- Size of the frame
+mainFrame.Position = UDim2.new(0.4, 0, 0.4, 0) -- Initial position
+mainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1) -- Dark gray background
+mainFrame.Active = true -- Make the frame active to enable dragging
+mainFrame.Draggable = true -- Allow the frame to be draggable
+mainFrame.Parent = screenGui -- Add the frame to the ScreenGui
+
+-- Create the X button to close the frame
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30) -- Size of the X button
+closeButton.Position = UDim2.new(1, -35, 0, 5) -- Positioned at the top-right corner
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.new(1, 1, 1) -- White text
+closeButton.BackgroundColor3 = Color3.new(1, 0, 0) -- Red background for the X button
+closeButton.Parent = mainFrame
+
+-- Close the GUI when the X button is clicked
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy() -- Destroys the entire GUI
+end)
+
+-- Create the teleport button inside the frame
+local teleportButton = Instance.new("TextButton")
+teleportButton.Size = UDim2.new(0, 200, 0, 50) -- Size of the button
+teleportButton.Position = UDim2.new(0.1, 0, 0.2, 0) -- Positioned within the frame
+teleportButton.Text = "Teleport to Noodle Rank board" -- Button text
+teleportButton.Parent = mainFrame -- Add button to the frame
+
+-- Create the random positions for teleportation
+local positions = {
+    Vector3.new(42, 4, -21)
+}
+
+local teleportCount = 0
+local maxTeleports = 1
+local teleportCooldown = 1 -- seconds
+
+-- Event handler for button press
+teleportButton.MouseButton1Click:Connect(function()
+    -- Teleport without using functions
+    hrp.CFrame = CFrame.new(positions[1])
+    wait(teleportCooldown)
+end)
+
+-- Optional: Customize the button's and frame's appearance
+teleportButton.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5) -- Green background
+teleportButton.TextColor3 = Color3.new(1, 1, 1) -- White text
+
+mainFrame.BorderSizePixel = 2
+mainFrame.BorderColor3 = Color3.new(1, 1, 1) -- White border for the frame
