@@ -1,4 +1,4 @@
-this is just some scripts that i made xd
+this is just some scripts that i made xd (opensource)
 loadstring below
 
 
