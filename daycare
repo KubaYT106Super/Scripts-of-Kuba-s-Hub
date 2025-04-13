@@ -1,5 +1,4 @@
---Find Lua scripts online and paste them here!
-print("Hello world!")-- Get the local player and their character
+-- Get the local player and their character
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local hrp = character:WaitForChild("HumanoidRootPart") -- HumanoidRootPart
