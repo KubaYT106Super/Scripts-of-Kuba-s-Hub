@@ -74,11 +74,10 @@ local button4 = Instance.new("TextButton")
 button4.Parent = scrollableFrame
 button4.Size = UDim2.new(0, 360, 0, 50)
 button4.Position = UDim2.new(0, 10, 0, 190)
-button4.Text = "Run Script 4 - Attack Sequence"
+button4.Text = "morse code chatter"
 button4.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 button4.MouseButton1Click:Connect(function()
-    print("Executing Attack Sequence script")
-    -- Add your specific script code here
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/KubaYT106Super/Scripts-of-Kuba-s-Hub/refs/heads/main/morsecode"))()
 end)
 
 local button5 = Instance.new("TextButton")
