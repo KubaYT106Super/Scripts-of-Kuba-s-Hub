@@ -1,0 +1,130 @@
+-- Variables
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+local parentFrame = Instance.new("Frame")
+local scrollableFrame = Instance.new("ScrollingFrame")
+local closeButton = Instance.new("TextButton")
+
+-- Set up GUI
+gui.Parent = player:WaitForChild("PlayerGui")
+gui.ResetOnSpawn = false
+
+-- Parent frame (Main GUI)
+parentFrame.Parent = gui
+parentFrame.Size = UDim2.new(0, 400, 0, 300)
+parentFrame.Position = UDim2.new(0.5, -200, 0.5, -150) -- Center the frame
+parentFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Draggable area color (black)
+parentFrame.BorderSizePixel = 3
+parentFrame.Draggable = true -- Make the parent frame draggable
+parentFrame.Active = true
+
+-- Scrollable frame
+scrollableFrame.Parent = parentFrame
+scrollableFrame.Size = UDim2.new(0, 380, 0, 240)
+scrollableFrame.Position = UDim2.new(0, 10, 0, 40) -- Inside the parent frame, leave room for drag area
+scrollableFrame.CanvasSize = UDim2.new(0, 0, 5, 0) -- Adjust depending on content
+scrollableFrame.ScrollBarThickness = 10
+scrollableFrame.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+
+-- Close Button (X)
+closeButton.Parent = parentFrame
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, -35) -- Place it at the top-right corner, slightly outside
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+-- Functionality to close the GUI
+closeButton.MouseButton1Click:Connect(function()
+    gui:Destroy() -- Destroys the entire GUI when X is clicked
+end)
+
+-- Create individual buttons with unique names and scripts
+local button1 = Instance.new("TextButton")
+button1.Parent = scrollableFrame
+button1.Size = UDim2.new(0, 360, 0, 50)
+button1.Position = UDim2.new(0, 10, 0, 10)
+button1.Text = "morsecode 1"
+button1.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button1.MouseButton1Click:Connect(function()
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("--- --- .-. ... . / -.-. --- -.. . -.-.--", "All")
+end)
+
+local button2 = Instance.new("TextButton")
+button2.Parent = scrollableFrame
+button2.Size = UDim2.new(0, 360, 0, 50)
+button2.Position = UDim2.new(0, 10, 0, 70)
+button2.Text = "morsecode 2"
+button2.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button2.MouseButton1Click:Connect(function()
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("-.. --- ..- -.-. .... . -... .- --.", "All")
+end)
+
+local button3 = Instance.new("TextButton")
+button3.Parent = scrollableFrame
+button3.Size = UDim2.new(0, 360, 0, 50)
+button3.Position = UDim2.new(0, 10, 0, 130)
+button3.Text = "morsecode 3"
+button3.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button3.MouseButton1Click:Connect(function()
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("-.. .- -. --. / ...-- .----. ----. / ..-. . .-.. .-.. .-", "All")
+end)
+
+local button4 = Instance.new("TextButton")
+button4.Parent = scrollableFrame
+button4.Size = UDim2.new(0, 360, 0, 50)
+button4.Position = UDim2.new(0, 10, 0, 190)
+button4.Text = "morsecode 4"
+button4.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+button4.MouseButton1Click:Connect(function()
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("-.-- --- ..- / - .... .. -. -.- / -.-- --- ..- .----. .-. . / -... . - - . .-.", "All")
+end)
+
+local button5 = Instance.new("TextButton")
+button5.Parent = scrollableFrame
+button5.Size = UDim2.new(0, 360, 0, 50)
+button5.Position = UDim2.new(0, 10, 0, 250)
+button5.Text = "morsecode 5"
+button5.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+button5.MouseButton1Click:Connect(function()
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("-.-- --- ..- / -... ..- .. .-.. - / .-.. .. -.- . / .- / .--. --- - .- - ---", "All")
+end)
+
+-- You can continue adding more buttons with unique names and positions as needed
+
+-- Draggable functionality for the main GUI
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function updateInput(input)
+    local delta = input.Position - dragStart
+    parentFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+parentFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = parentFrame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+parentFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if dragging and input == dragInput then
+        updateInput(input)
+    end
+end)
